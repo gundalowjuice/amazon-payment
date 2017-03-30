@@ -110,7 +110,7 @@ class Gateway extends AbstractGateway
             ->queryRow();
 
         $obj = json_decode($amazon_settings['settings']);
-        //var_dump(json_decode($amazon_settings['settings'], true));
+        var_dump(json_decode($amazon_settings['settings'], true));
 
         // define setttings we need fro Amazon
         $merchant_id = $obj->{'seller_id'}; // SellerID
@@ -141,7 +141,7 @@ class Gateway extends AbstractGateway
         $requestParameters['platform_id']               = null;
         $requestParameters['custom_information']        = $_POST['orderUserEmail'];
         $requestParameters['mws_auth_token']            = null;
-        $requestParameters['amazon_order_reference_id'] = $_POST['orderReferenceId']; 
+        $requestParameters['amazon_order_reference_id'] = $_POST['orderReferenceId'];
 
         // Set the Order details by making the SetOrderReferenceDetails API call
         $response = $client->setOrderReferenceDetails($requestParameters);
@@ -158,20 +158,20 @@ class Gateway extends AbstractGateway
 
         // Pretty print the Json and then echo it for the Ajax success to take in
         $json = json_decode($response->toJson());
-    
+
         return $json;
 
     }
 
     public function purchase(array $parameters = array())
-    {   
+    {
 
         return $this->createRequest('\Omnipay\AmazonPayments\Message\PurchaseRequest', $parameters);
     }
-    
+
     public function completePurchase(array $parameters = array())
-    {   
-       
+    {
+
         //return $this->createRequest('\Omnipay\AmazonPayments\Message\PurchaseCompleteRequest', $parameters);
     }
 }
